@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
 {
@@ -28,14 +25,28 @@ namespace DatingApp.API.Data
             return user;
         }
 
-        public Task<UserModel> Login(string username, string password)
+        public async Task<UserModel> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = await _context.UserModels.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null)
+            {
+                return null;
+            }
+
+            return !ComparePasswordHash(password, user.PasswordSalt, user.PasswordHash) ? null : user;
         }
 
-        public Task<bool> UserExists(string username, string email)
+        private static bool ComparePasswordHash(string password, byte[] userPasswordSalt, byte[] userPasswordHash)
         {
-            throw new NotImplementedException();
+            using var hmac = new HMACSHA512(userPasswordSalt);
+            var passHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+            return passHash == userPasswordHash;
+        }
+
+        public async Task<bool> UserExists(string username, string email)
+        {
+            return (await _context.UserModels.AnyAsync(u => u.Username == username));
         }
 
         private static (byte[], byte[]) CreatePassWordHash(string password)
