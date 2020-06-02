@@ -21,9 +21,10 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
             services.AddDbContext<DatingAppContext>(opt =>
             {
-                opt.UseSqlServer(Configuration.GetConnectionString("Default"));
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
         }
 
@@ -37,6 +38,12 @@ namespace DatingApp.API
 
             // app.UseHttpsRedirection();
 
+            app.UseCors(opt =>
+            {
+                opt.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
             app.UseRouting();
 
             app.UseAuthorization();
