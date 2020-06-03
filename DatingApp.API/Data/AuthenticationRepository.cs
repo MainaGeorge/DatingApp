@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,8 @@ namespace DatingApp.API.Data
         }
         public async Task<UserModel> Register(UserModel user, string password)
         {
-            var (passwordHash, passwordSalt) = CreatePassWordHash(password);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            (user.PasswordHash, user.PasswordSalt) = CreatePassWordHash(password);
+
 
             await _context.UserModels.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -61,7 +61,7 @@ namespace DatingApp.API.Data
             using var hmac = new HMACSHA512(userPasswordSalt);
             var passHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
-            return passHash == userPasswordHash;
+            return !passHash.Where((t, i) => t != userPasswordHash[i]).Any();
         }
     }
 }
