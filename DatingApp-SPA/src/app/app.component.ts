@@ -15,7 +15,8 @@ export class AppComponent  implements OnInit{
     this.http.get('https://localhost:44337/api/values').subscribe( data => {
       this.values = data;
     }, error => {
-      console.log(error);
+      console.log(error.name);
+      console.log(error.message);
     })
   }
 }
