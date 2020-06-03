@@ -10,9 +10,12 @@
       <li class="nav-item">
         <a class="nav-link " href="#" tabindex="-1">Message</a>
       </li>
+      <li class="nav-item" *ngIf="loggedInUser">
+        <a class="nav-link " href="#" tabindex="-1" (click)="onLogout()">Logout</a>
+      </li>
     </ul>
 
-  <div class="nav-item dropdown text-right text-light" style="margin-right: 10px">
+  <div class="nav-item dropdown text-right text-light" style="margin-right: 10px" *ngIf="loggedInUser">
     <a class="nav-link"><i class="fa fa-user-circle"></i>
       Welcome User
     </a>
@@ -23,9 +26,15 @@
     </div>
   </div>
 
-    <form class="form-inline mt-2 mt-md-0" autocomplete="off">
-      <input class="form-control mr-sm-2" type="text" placeholder="Username">
-      <input class="form-control mr-sm-2" type="password" placeholder="Password">
-      <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+  <div *ngIf="!loggedInUser">
+    <form #formElement="ngForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="onSubmit(formElement)">
+      <label>
+        <input class="form-control mr-sm-2" type="text" required placeholder="Username" name="username" ngModel>
+      </label>
+      <label>
+        <input class="form-control mr-sm-2" type="password" required placeholder="Password" name="password" ngModel>
+      </label>
+      <button class="btn btn-success my-2 my-sm-0" type="submit" [disabled]="formElement.invalid">Login</button>
     </form>
+  </div>
 </nav>
