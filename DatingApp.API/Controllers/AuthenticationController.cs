@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DatingApp.API.Data;
+using DatingApp.API.Models;
+using DatingApp.API.Models.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
@@ -16,13 +18,34 @@ namespace DatingApp.API.Controllers
         }
 
 
-       
-        [HttpPost("register")]
-        public async Task<IActionResult> Register()
-        {
 
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegistrationDataObject regData)
+        {
+            regData.Username = regData.Username.ToLower();
+
+            if (await _authRepo.UsernameExists(regData.Username))
+            {
+                return BadRequest("username already exists");
+            }
+
+            if (await _authRepo.EmailExists(regData.Email))
+            {
+                return BadRequest("this email is already taken");
+            }
+
+            var userToSave = new UserModel
+            {
+                Username = regData.Username,
+                Email = regData.Email
+            };
+
+            var user = await _authRepo.Register(userToSave, regData.Password);
+
+
+            return StatusCode(201);
         }
-       
+
 
     }
 }

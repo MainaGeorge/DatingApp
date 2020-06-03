@@ -12,6 +12,8 @@ namespace DatingApp.API.Data
 
         Task<UserModel> Login(string username, string password);
 
-        Task<bool> UserExists(string username, string email);
+        Task<bool> UsernameExists(string username);
+
+        Task<bool> EmailExists(string email);
     }
 }

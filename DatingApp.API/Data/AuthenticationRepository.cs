@@ -36,17 +36,15 @@ namespace DatingApp.API.Data
             return !ComparePasswordHash(password, user.PasswordSalt, user.PasswordHash) ? null : user;
         }
 
-        private static bool ComparePasswordHash(string password, byte[] userPasswordSalt, byte[] userPasswordHash)
-        {
-            using var hmac = new HMACSHA512(userPasswordSalt);
-            var passHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
-            return passHash == userPasswordHash;
+        public async Task<bool> UsernameExists(string username)
+        {
+            return await _context.UserModels.AnyAsync(u => u.Username == username);
         }
 
-        public async Task<bool> UserExists(string username, string email)
+        public async Task<bool> EmailExists(string email)
         {
-            return (await _context.UserModels.AnyAsync(u => u.Username == username));
+            return await _context.UserModels.AnyAsync(u => u.Email == email);
         }
 
         private static (byte[], byte[]) CreatePassWordHash(string password)
@@ -56,6 +54,14 @@ namespace DatingApp.API.Data
             var passHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
             return (passHash, salt);
+        }
+
+        private static bool ComparePasswordHash(string password, byte[] userPasswordSalt, byte[] userPasswordHash)
+        {
+            using var hmac = new HMACSHA512(userPasswordSalt);
+            var passHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+            return passHash == userPasswordHash;
         }
     }
 }
