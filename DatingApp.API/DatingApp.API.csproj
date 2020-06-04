@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200602134724_AddingUserModel.cs" />
     <Compile Remove="Migrations\20200602134724_AddingUserModel.Designer.cs" />
+    <Compile Remove="Migrations\20200604115941_ExtendingUserTable.cs" />
+    <Compile Remove="Migrations\20200604115941_ExtendingUserTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
