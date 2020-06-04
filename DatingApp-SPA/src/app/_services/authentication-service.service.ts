@@ -4,17 +4,17 @@ import {LoginModel, RegisterData, UserModel} from "../shared/models";
 import {map} from "rxjs/operators";
 import {AlertifyService} from "./alertify-service";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationServiceService {
-  private baseUrl = 'https://localhost:44337/api/authentication/';
+  private baseUrl = environment.apiUrl + 'authentication/'
   private jwtHelperService = new JwtHelperService();
   decodedToken: {exp: number, iat: number, unique_name: string, nameid:string, nbf: number};
 
-  constructor(private http: HttpClient,
-              private alertifyService: AlertifyService) { }
+  constructor(private http: HttpClient) { }
 
   login(loginData: LoginModel){
     return this.http.post<{token: string}>(this.baseUrl + 'login', loginData)
@@ -22,7 +22,6 @@ export class AuthenticationServiceService {
         if(response){
           localStorage.setItem('token', response.token);
           this.decodedToken = this.jwtHelperService.decodeToken(response.token)
-          console.log(this.decodedToken);
         }
       } ));
   }

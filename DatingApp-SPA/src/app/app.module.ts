@@ -13,8 +13,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
 import {routes} from "./routing";
 import { MessagesComponent } from './messages/messages.component';
-import { MembersListComponent } from './members-list/members-list.component';
+import { MembersListComponent } from './members/members-list/members-list.component';
 import { ListsComponent } from './lists/lists.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+
+export function getToken() {
+  return localStorage.getItem('token')
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +30,7 @@ import { ListsComponent } from './lists/lists.component';
     MessagesComponent,
     MembersListComponent,
     ListsComponent,
-  ],
+    MemberCardComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

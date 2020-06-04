@@ -22,6 +22,7 @@ export class NavigationComponentComponent implements OnInit {
   onSubmit(formElement: NgForm){
     this.authService.login(formElement.value).subscribe( response => {
         this.alertify.success('logged in successfully');
+        this.router.navigate(['/members']);
       }, error => {
       this.alertify.errorMessage(error);
     })

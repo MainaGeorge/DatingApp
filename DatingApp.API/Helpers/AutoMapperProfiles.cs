@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using AutoMapper;
 using DatingApp.API.Models;
 using DatingApp.API.Models.DataTransferObjects;

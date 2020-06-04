@@ -11,9 +11,26 @@ export interface RegisterData {
 
 
 export interface UserModel {
-  PasswordHash: ArrayBuffer,
-  PasswordSalt: ArrayBuffer,
-  Username: string,
-  Id: number,
-  Email: string
+  username: string,
+  id: number,
+  age: number,
+  gender: string,
+  knownAs: string,
+  photoUrl: string,
+  created: Date,
+  city: string,
+  country: string,
+  lastActive: Date,
+  interests?: string,
+  introduction?: string,
+  lookingFor?: string,
+  photo: Photo[]
+}
+
+export interface Photo {
+  id: number,
+  url: string,
+  description: string,
+  isMain: boolean,
+  dateAdded: Date
 }
