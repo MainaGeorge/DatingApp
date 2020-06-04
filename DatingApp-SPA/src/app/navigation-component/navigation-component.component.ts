@@ -23,7 +23,7 @@ export class NavigationComponentComponent implements OnInit {
         console.log('logged in')
       this.loggedInUser = this.authService.isLoggedIn();
       }, error => {
-      console.log(error.message);
+      console.log(error);
     })
 
     formElement.reset();
@@ -31,5 +31,6 @@ export class NavigationComponentComponent implements OnInit {
 
   onLogout(){
     this.authService.logout();
+    this.loggedInUser = this.authService.isLoggedIn();
   }
 }

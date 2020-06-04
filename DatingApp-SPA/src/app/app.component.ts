@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {AuthenticationServiceService} from "./_services/authentication-service.service";
 
 @Component({
   selector: 'app-root',
@@ -8,15 +9,9 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppComponent  implements OnInit{
   values: any;
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.http.get('https://localhost:44337/api/values').subscribe( data => {
-      this.values = data;
-    }, error => {
-      console.log(error.name);
-      console.log(error.message);
-    })
   }
 }

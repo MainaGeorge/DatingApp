@@ -53,7 +53,7 @@ namespace DatingApp.API.Controllers
             var user = await _authRepo.Register(userToSave, regData.Password);
 
 
-            return StatusCode(201);
+            return Ok(user);
         }
 
 

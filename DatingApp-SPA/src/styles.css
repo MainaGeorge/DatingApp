@@ -2,3 +2,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+input.ng-invalid.ng-touched {
+  border: red solid 1px;
+}
+
+input.ng-valid.ng-touched{
+  border: green solid 1px;
+}
