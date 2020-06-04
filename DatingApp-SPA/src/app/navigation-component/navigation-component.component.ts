@@ -3,6 +3,7 @@ import {LoginModel} from "../shared/models";
 import {AuthenticationServiceService} from "../_services/authentication-service.service";
 import {NgForm} from "@angular/forms";
 import {AlertifyService} from "../_services/alertify-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navigation-component',
@@ -12,7 +13,8 @@ import {AlertifyService} from "../_services/alertify-service";
 export class NavigationComponentComponent implements OnInit {
 
   constructor(public authService: AuthenticationServiceService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -33,5 +35,8 @@ export class NavigationComponentComponent implements OnInit {
 
   onLogout(){
     this.authService.logout();
+    this.alertify.warning('logging out');
+    this.router.navigate(['/home']);
+
   }
 }

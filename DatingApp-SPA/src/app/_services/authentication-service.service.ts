@@ -33,7 +33,6 @@ export class AuthenticationServiceService {
 
   logout(){
     localStorage.removeItem('token');
-    this.alertifyService.message('logging out');
   }
 
   isLoggedIn(){
