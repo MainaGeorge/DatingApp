@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Text;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace DatingApp.API
 {
@@ -27,8 +29,12 @@ namespace DatingApp.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddCors();
+
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddDbContext<DatingAppContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -57,27 +63,27 @@ namespace DatingApp.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            // }
-            // else
-            // {
-            app.UseExceptionHandler(builder =>
+            if (env.IsDevelopment())
             {
-                builder.Run(async httpContext =>
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(builder =>
                 {
-                    httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-                    var error = httpContext.Features.Get<IExceptionHandlerFeature>();
-                    if (error != null)
+                    builder.Run(async httpContext =>
                     {
-                        httpContext.Response.AddHeadersToErrorResponses(error.Error.Message);
-                        await httpContext.Response.WriteAsync(error.Error.Message);
-                    }
+                        httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                        var error = httpContext.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            httpContext.Response.AddHeadersToErrorResponses(error.Error.Message);
+                            await httpContext.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
                 });
-            });
-            // }
+            }
 
             // app.UseHttpsRedirection();
 
