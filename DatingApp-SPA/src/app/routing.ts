@@ -5,10 +5,10 @@ import {MessagesComponent} from "./messages/messages.component";
 import {ListsComponent} from "./lists/lists.component";
 
  export const routes: Routes = [
-  { path: 'home', component:HomeComponentComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full'},
    {path: 'members', component: MembersListComponent},
    {path: 'messages', component: MessagesComponent},
    {path: 'lists', component: ListsComponent},
-   {path: '', pathMatch: 'full', redirectTo: '/home'},
-  {path: '**', redirectTo: '', pathMatch: 'full'}
+   {path: 'home', component:HomeComponentComponent},
+  {path: '**', redirectTo: '/home'}
 ]
