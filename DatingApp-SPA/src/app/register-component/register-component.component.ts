@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Subject} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {AuthenticationServiceService} from "../_services/authentication-service.service";
+import {AlertifyService} from "../_services/alertify-service";
 
 @Component({
   selector: 'app-register-component',
@@ -10,7 +11,8 @@ import {AuthenticationServiceService} from "../_services/authentication-service.
 })
 export class RegisterComponentComponent implements OnInit {
   @Output('cancelRegistration') cancelRegistrationEvent = new EventEmitter<boolean>();
-  constructor(private authService: AuthenticationServiceService) { }
+  constructor(private authService: AuthenticationServiceService,
+              private alertifyService: AlertifyService) { }
 
   ngOnInit(): void {
   }
@@ -21,9 +23,9 @@ export class RegisterComponentComponent implements OnInit {
 
   onSubmit(registrationForm: NgForm) {
     this.authService.register(registrationForm.value).subscribe( results => {
-      console.log(results)
+      this.alertifyService.success('registration successful')
     }, error => {
-      console.log(error);
+      this.alertifyService.errorMessage(error);
     });
   }
 }
