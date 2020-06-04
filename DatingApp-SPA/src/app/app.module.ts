@@ -12,6 +12,9 @@ import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
 import {routes} from "./routing";
+import { MessagesComponent } from './messages/messages.component';
+import { MembersListComponent } from './members-list/members-list.component';
+import { ListsComponent } from './lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import {routes} from "./routing";
     NavigationComponentComponent,
     HomeComponentComponent,
     RegisterComponentComponent,
+    MessagesComponent,
+    MembersListComponent,
+    ListsComponent,
   ],
   imports: [
     BrowserModule,

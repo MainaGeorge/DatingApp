@@ -2,12 +2,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/bootswatch/dist/united/bootstrap.min.css";
-/*@import "../node_modules/alertifyjs/build/css/alertify.min.css";*/
-/*@import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";*/
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+
 input.ng-invalid.ng-touched {
   border: red solid 1px;
 }
 
 input.ng-valid.ng-touched{
   border: green solid 1px;
+}
+
+li.active {
+  border: mediumslateblue solid 1px;
 }
