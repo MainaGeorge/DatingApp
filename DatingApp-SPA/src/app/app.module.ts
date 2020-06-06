@@ -16,6 +16,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MembersListComponent } from './members/members-list/members-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import {AddHeaderInterceptorProvider} from "./_services/header-modifying.service";
 
 export function getToken() {
   return localStorage.getItem('token')
@@ -39,7 +40,7 @@ export function getToken() {
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)
 ],
-  providers: [ErrorInterceptorProvider],
+  providers: [ErrorInterceptorProvider, AddHeaderInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
