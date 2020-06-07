@@ -22,6 +22,8 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import {MemberDetailsResolver} from "./_resolvers/member-details.resolver";
 import {TabsModule} from "ngx-bootstrap/tabs";
 import {NgxGalleryModule} from "@kolkov/ngx-gallery";
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import {MemberEditResolver} from "./_resolvers/member-edit.resolver";
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import {NgxGalleryModule} from "@kolkov/ngx-gallery";
     MembersListComponent,
     ListsComponent,
     MemberCardComponent,
-    MemberDetailComponent],
+    MemberDetailComponent,
+    MemberEditComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -45,7 +48,12 @@ import {NgxGalleryModule} from "@kolkov/ngx-gallery";
     TabsModule.forRoot(),
     NgxGalleryModule
 ],
-  providers: [ErrorInterceptorProvider, AddHeaderInterceptorProvider, MembersResolver, MemberDetailsResolver],
+  providers: [ErrorInterceptorProvider,
+    AddHeaderInterceptorProvider,
+    MembersResolver,
+    MemberDetailsResolver,
+    MemberEditResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
