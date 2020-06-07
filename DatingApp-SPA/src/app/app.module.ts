@@ -20,6 +20,7 @@ import {AddHeaderInterceptorProvider} from "./_services/header-modifying.service
 import {MembersResolver} from "./_resolvers/members.resolver";
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import {MemberDetailsResolver} from "./_resolvers/member-details.resolver";
+import {TabsModule} from "ngx-bootstrap/tabs";
 
 export function getToken() {
   return localStorage.getItem('token')
@@ -42,7 +43,8 @@ export function getToken() {
     FormsModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    TabsModule.forRoot()
 ],
   providers: [ErrorInterceptorProvider, AddHeaderInterceptorProvider, MembersResolver, MemberDetailsResolver],
   bootstrap: [AppComponent]
