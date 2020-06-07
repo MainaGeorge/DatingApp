@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginModel} from "../shared/models";
-import {AuthenticationServiceService} from "../_services/authentication-service.service";
-import {NgForm} from "@angular/forms";
-import {AlertifyService} from "../_services/alertify-service";
-import {Router} from "@angular/router";
+import {AuthenticationServiceService} from '../_services/authentication-service.service';
+import {NgForm} from '@angular/forms';
+import {AlertifyService} from '../_services/alertify-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation-component',
@@ -25,13 +24,13 @@ export class NavigationComponentComponent implements OnInit {
         this.router.navigate(['/members']);
       }, error => {
       this.alertify.errorMessage(error);
-    })
+    });
 
     formElement.reset();
   }
 
   loggedIn(){
-    return this.authService.isLoggedIn()
+    return this.authService.isLoggedIn();
   }
 
   onLogout(){
