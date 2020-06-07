@@ -17,6 +17,7 @@ import { MembersListComponent } from './members/members-list/members-list.compon
 import { ListsComponent } from './lists/lists.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import {AddHeaderInterceptorProvider} from "./_services/header-modifying.service";
+import {MembersResolver} from "./_resolvers/members.resolver";
 
 export function getToken() {
   return localStorage.getItem('token')
@@ -40,7 +41,7 @@ export function getToken() {
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)
 ],
-  providers: [ErrorInterceptorProvider, AddHeaderInterceptorProvider],
+  providers: [ErrorInterceptorProvider, AddHeaderInterceptorProvider, MembersResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

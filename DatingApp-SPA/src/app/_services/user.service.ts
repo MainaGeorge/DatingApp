@@ -14,10 +14,10 @@ baseUrl = environment.apiUrl;
 
 
   getUsers(): Observable<UserModel[]>{
-    return this.http.get<UserModel[]>(this.baseUrl + 'users');
+    return this.http.get<UserModel[]>(`${this.baseUrl}users`);
   }
 
   getUser(id: number): Observable<UserModel>{
-    return this.http.get<UserModel>(this.baseUrl + 'users');
+    return this.http.get<UserModel>(`${this.baseUrl}users/${id}`);
   }
 }
