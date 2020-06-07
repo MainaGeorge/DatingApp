@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {UserModel} from "../../shared/models";
 import {NgForm} from "@angular/forms";
 import {AlertifyService} from "../../_services/alertify-service";
+import {UserService} from '../../_services/user.service';
+import {AuthenticationServiceService} from '../../_services/authentication-service.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -11,10 +13,12 @@ import {AlertifyService} from "../../_services/alertify-service";
 })
 export class MemberEditComponent implements OnInit {
   user: UserModel;
-  @ViewChild('editForm', { static: true}) editForm : NgForm
+  @ViewChild('editForm', { static: true}) editForm: NgForm;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private alertifyService: AlertifyService) { }
+              private alertifyService: AlertifyService,
+              private userService: UserService,
+              private authService: AuthenticationServiceService) { }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe( dataFromRoute => {
@@ -23,10 +27,11 @@ export class MemberEditComponent implements OnInit {
   }
 
   onSaveChanges() {
-    if(this.editForm.valid){
-      console.log(this.editForm.value);
-      this.alertifyService.success('changes saved successfully');
-      this.editForm.reset(this.user);
-    }
+      this.userService.updateUser(+this.authService.decodedToken.nameid, this.editForm.value).subscribe( next => {
+        this.alertifyService.success('profile successfully updated');
+        this.editForm.reset(this.user);
+      }, error => {
+        this.alertifyService.errorMessage(error)
+      });
   }
 }

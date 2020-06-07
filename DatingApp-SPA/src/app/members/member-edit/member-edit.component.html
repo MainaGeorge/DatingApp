@@ -42,17 +42,17 @@
           <tab heading="Edit Profile">
             <form #editForm="ngForm" id="editForm" (ngSubmit)="onSaveChanges()">
               <h4>Description</h4>
-              <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction" required></textarea>
+              <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction" ></textarea>
               <h4>Looking for:</h4>
-              <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="user.lookingFor" required></textarea>
+              <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="user.lookingFor" ></textarea>
               <h4>Interests:</h4>
-              <textarea name="interests" rows="6" class="form-control" [(ngModel)]="user.interests" required></textarea>
+              <textarea name="interests" rows="6" class="form-control" [(ngModel)]="user.interests" ></textarea>
               <h4>Location Details:</h4>
               <div class="form-inline form-group">
                 <label for="city" style="margin:0 10px">City</label>
-                <input type="text" name="city" id="city" class="form-control" [(ngModel)]="user.city" required>
+                <input type="text" name="city" id="city" class="form-control" [(ngModel)]="user.city" >
                 <label for="country" style="margin: 0 10px">Country</label>
-                <input type="text" name="country" id="country" class="form-control" [(ngModel)]="user.country" required>
+                <input type="text" name="country" id="country" class="form-control" [(ngModel)]="user.country" >
               </div>
 
             </form>
