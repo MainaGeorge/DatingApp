@@ -17,3 +17,5 @@
 .container {
   max-width: 90%;
 }
+
+.ngx-gallery { display: inline-block; margin-bottom: 20px; }

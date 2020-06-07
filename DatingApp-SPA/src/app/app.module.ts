@@ -21,10 +21,8 @@ import {MembersResolver} from "./_resolvers/members.resolver";
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import {MemberDetailsResolver} from "./_resolvers/member-details.resolver";
 import {TabsModule} from "ngx-bootstrap/tabs";
+import {NgxGalleryModule} from "@kolkov/ngx-gallery";
 
-export function getToken() {
-  return localStorage.getItem('token')
-}
 
 @NgModule({
   declarations: [
@@ -44,7 +42,8 @@ export function getToken() {
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    NgxGalleryModule
 ],
   providers: [ErrorInterceptorProvider, AddHeaderInterceptorProvider, MembersResolver, MemberDetailsResolver],
   bootstrap: [AppComponent]

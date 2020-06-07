@@ -16,9 +16,6 @@ input.ng-valid.ng-touched{
 li.active {
   border: mediumslateblue solid 1px;
 }
-===========
-Snippet for styles.css to style the tabs component
-===========
 
 .tab-panel {
   border: 1px solid #ddd;

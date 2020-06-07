@@ -24,7 +24,7 @@ export interface UserModel {
   interests?: string,
   introduction?: string,
   lookingFor?: string,
-  photo: Photo[]
+  photos: Photo[]
 }
 
 export interface Photo {
