@@ -11,8 +11,7 @@ import {AuthenticationServiceService} from './authentication-service.service';
 
 export class UserService {
 baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient,
-              private authService: AuthenticationServiceService) { }
+  constructor(private http: HttpClient) { }
 
 
   getUsers(): Observable<UserModel[]>{
@@ -27,7 +26,11 @@ baseUrl = environment.apiUrl;
     return this.http.put(`${this.baseUrl}users/${id}`, userModel);
   }
 
-  updateProfilePhoto(photoId: number){
-    return this.http.post(`${this.baseUrl}users/${this.authService.decodedToken.nameid}/photos/${photoId}/setMainPhoto`, {})
+  updateProfilePhoto(userId: number, photoId: number){
+    return this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMainPhoto`, {});
+  }
+
+  deletePhoto(userId:number, photoId: number){
+    return this.http.delete(`${this.baseUrl}users/${userId}/photos/${photoId}/setMainPhoto`);
   }
 }
