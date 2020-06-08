@@ -11,3 +11,11 @@ img.img-thumbnail {
 input[type=file]{
   color: transparent;
 }
+
+.btn {
+  margin-right: 3px;
+}
+
+.d-flex{
+  justify-content: space-between;
+}
