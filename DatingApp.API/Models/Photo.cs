@@ -11,6 +11,8 @@ namespace DatingApp.API.Models
         public bool IsMain { get; set; }
         public string Url { get; set; }
 
+        public string PublicId { get; set; }
+
         public UserModel UserModel { get; set; }
 
         public int UserModelId { get; set; }

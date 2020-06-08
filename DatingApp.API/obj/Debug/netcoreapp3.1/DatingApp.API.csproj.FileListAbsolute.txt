@@ -66,5 +66,6 @@ C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\bin\Debug\netcoreapp3.1\
 C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\bin\Debug\netcoreapp3.1\CloudinaryDotNet.dll
 C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\obj\Debug\netcoreapp3.1\DatingApp.API.csproj.CoreCompileInputs.cache
 C:\Users\genag\OneDrive\Desktop\DatingApp\DatingApp.API\obj\Debug\netcoreapp3.1\DatingApp.API.MvcApplicationPartsAssemblyInfo.cache

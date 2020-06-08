@@ -11,6 +11,6 @@ export class PreventDataLossGuard implements CanDeactivate<MemberEditComponent>{
     if (component.editForm.dirty){
       return confirm('Are you sure you want to leave? Changes made will not be saved!');
     }
-    return false;
+    return true;
   }
 }

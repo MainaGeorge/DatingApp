@@ -10,10 +10,13 @@
     <Compile Remove="Migrations\20200602134724_AddingUserModel.Designer.cs" />
     <Compile Remove="Migrations\20200604115941_ExtendingUserTable.cs" />
     <Compile Remove="Migrations\20200604115941_ExtendingUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20200607191220_AddingPhoos.cs" />
+    <Compile Remove="Migrations\20200607191220_AddingPhoos.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />

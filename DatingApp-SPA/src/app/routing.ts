@@ -12,13 +12,16 @@ import {MemberEditResolver} from './_resolvers/member-edit.resolver';
 import {PreventDataLossGuard} from './_guards/prevent-data-loss.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full'},
-   {path: 'members', component: MembersListComponent, canActivate: [PermissionGuard], resolve: { users: MembersResolver}},
-   {path: 'members/edit',  component: MemberEditComponent,
-     canActivate: [PermissionGuard], resolve: {user: MemberEditResolver}, canDeactivate: [PreventDataLossGuard]},
-   {path: 'members/:id', resolve : { user : MemberDetailsResolver}, component: MemberDetailComponent, canActivate: [PermissionGuard]},
-   {path: 'messages', component: MessagesComponent, canActivate: [PermissionGuard]},
-   {path: 'lists', component: ListsComponent, canActivate: [PermissionGuard]},
+  { path: '',canActivate: [PermissionGuard], runGuardsAndResolvers: 'always', children:
+      [
+       {path: 'members', component: MembersListComponent, resolve: { users: MembersResolver}},
+       {path: 'members/edit',  component: MemberEditComponent,
+          resolve: {user: MemberEditResolver}, canDeactivate: [PreventDataLossGuard]},
+       {path: 'members/:id', resolve : { user : MemberDetailsResolver}, component: MemberDetailComponent},
+       {path: 'messages', component: MessagesComponent},
+       {path: 'lists', component: ListsComponent}
+      ]
+  },
    {path: 'home', component: HomeComponentComponent},
-  {path: '**', redirectTo: '/home'}
+   {path: '**', redirectTo: '/home'}
 ];
