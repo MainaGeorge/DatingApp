@@ -4,7 +4,7 @@
     <div class="text-center">
       <button class="btn btn-sm" type="button" [disabled]="photo.isMain"
       [ngClass]="photo.isMain ? 'btn-success' :'btn-primary'" (click)="setAsMainPhoto(photo)">Main</button>
-      <button class="btn btn-sm btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+      <button class="btn btn-sm btn-danger" type="button" (click)="onDeletePhoto(photo)"><i class="fas fa-trash-alt"></i></button>
     </div>
   </div>
 </div>

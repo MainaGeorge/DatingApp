@@ -68,4 +68,14 @@ export class PhotoEditComponent implements OnInit {
       this.alertifyService.errorMessage(error);
     });
   }
+
+  onDeletePhoto(photo: Photo) {
+    this.userService.deletePhoto(+this.authService.decodedToken.nameid, photo.id).subscribe( responseData => {
+      this.photos.splice(this.photos.findIndex(p => p.id == photo.id), 1);
+      this.alertifyService.success('photo deleted successfully');
+      },
+      error => {
+      this.alertifyService.errorMessage(error);
+      })
+  }
 }

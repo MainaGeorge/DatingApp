@@ -152,10 +152,10 @@ namespace DatingApp.API.Controllers
 
             if (photoFromRepo.IsMain)
             {
-                return BadRequest("You can not delete your main photo");
+                return BadRequest("You can not delete your main profile photo");
             }
 
-            if (photoFromRepo.PublicId == null) //photos from the repo
+            if (photoFromRepo.PublicId == null) //delete photos from the repo
             {
                 _repo.Delete(photoFromRepo);
             }
