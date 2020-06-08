@@ -19,7 +19,6 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class PhotosController : ControllerBase
     {
-        private readonly IOptions<CloudinarySettings> _cloudinarySettings;
         private readonly IMapper _mapper;
         private readonly IDatingRepository _repo;
         private readonly Cloudinary _cloudinary;
@@ -27,13 +26,13 @@ namespace DatingApp.API.Controllers
         public PhotosController(IOptions<CloudinarySettings> cloudinarySettings,
             IMapper mapper, IDatingRepository repo)
         {
-            _cloudinarySettings = cloudinarySettings;
+            var cloudinarySettings1 = cloudinarySettings;
             _mapper = mapper;
             _repo = repo;
 
             var account = new Account(cloudinarySettings.Value.CloudName,
-                _cloudinarySettings.Value.ApiKey,
-                _cloudinarySettings.Value.ApiSecret);
+                cloudinarySettings1.Value.ApiKey,
+                cloudinarySettings1.Value.ApiSecret);
 
             _cloudinary = new Cloudinary(account);
 
@@ -100,6 +99,40 @@ namespace DatingApp.API.Controllers
             }
 
 
+        }
+
+        [HttpPost("{photoId}/setMainPhoto")]
+        public async Task<IActionResult> SetMainPhoto(int userId, int photoId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var user = await _repo.GetUser(userId);
+
+            if (user.Photos.All(p => p.Id != photoId))
+            {
+                return Unauthorized();
+            }
+
+            var photoFromRepo = await _repo.GetPhoto(photoId);
+            if (photoFromRepo.IsMain)
+            {
+                return BadRequest("This is already the main photo");
+            }
+
+            var currentMainPhoto = await _repo.GetMainPhotoForUser(userId);
+            if (currentMainPhoto != null)
+            {
+                currentMainPhoto.IsMain = false;
+                photoFromRepo.IsMain = true;
+            }
+
+            if (await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Failed to set the photo as the main photo");
         }
 
 
