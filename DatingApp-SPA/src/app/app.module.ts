@@ -24,6 +24,8 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import {MemberEditResolver} from './_resolvers/member-edit.resolver';
+import { PhotoEditComponent } from './members/photo-edit/photo-edit.component';
+import {FileUploadModule} from 'ng2-file-upload';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import {MemberEditResolver} from './_resolvers/member-edit.resolver';
     ListsComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent],
+    MemberEditComponent,
+    PhotoEditComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -46,7 +49,8 @@ import {MemberEditResolver} from './_resolvers/member-edit.resolver';
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
 ],
   providers: [ErrorInterceptorProvider,
     AddHeaderInterceptorProvider,

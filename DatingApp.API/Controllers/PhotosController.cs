@@ -58,13 +58,14 @@ namespace DatingApp.API.Controllers
 
             var userFromRepo = await _repo.GetUser(userId);
 
-            var file = photoForCreationDto.File;
-
-            var uploadResult = new ImageUploadResult();
-
-            if (file.Length > 0)
+            if (photoForCreationDto.File != null)
             {
-                using var stream = file.OpenReadStream();
+                var file = photoForCreationDto.File;
+
+                var uploadResult = new ImageUploadResult();
+
+
+                await using var stream = file.OpenReadStream();
                 var uploadParams = new ImageUploadParams()
                 {
                     File = new FileDescription(file.Name, stream),
@@ -90,6 +91,7 @@ namespace DatingApp.API.Controllers
                 var photoToReturn = _mapper.Map<PhotoToReturnDto>(photo);
                 // return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
                 return Ok(photoToReturn);
+
 
             }
             else
