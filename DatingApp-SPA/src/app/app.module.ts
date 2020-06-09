@@ -26,6 +26,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import {MemberEditResolver} from './_resolvers/member-edit.resolver';
 import { PhotoEditComponent } from './members/photo-edit/photo-edit.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -43,6 +44,8 @@ import {FileUploadModule} from 'ng2-file-upload';
     PhotoEditComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

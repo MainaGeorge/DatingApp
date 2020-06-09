@@ -4,6 +4,7 @@ import {AuthenticationServiceService} from "../_services/authentication-service.
 import {AlertifyService} from "../_services/alertify-service";
 import {LoginModel, UserModel} from '../shared/models';
 import {Router} from '@angular/router';
+import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-register-component',
@@ -15,6 +16,8 @@ export class RegisterComponentComponent implements OnInit {
 
   user: UserModel
   registerForm: FormGroup;
+  colorTheme = "theme-orange";
+  bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(private authService: AuthenticationServiceService,
               private alertifyService: AlertifyService,
@@ -39,7 +42,8 @@ export class RegisterComponentComponent implements OnInit {
       'dateOfBirth': new FormControl(null, Validators.required),
       'city': new FormControl('City', Validators.required),
       'country': new FormControl('Country', Validators.required)
-    }, this.validateConfirmPassword)
+    }, this.validateConfirmPassword);
+    this.bsConfig = Object.assign({}, { containerClass: this.colorTheme });
   }
 
   onCancel() {
