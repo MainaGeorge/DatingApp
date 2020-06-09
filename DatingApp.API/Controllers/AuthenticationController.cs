@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Models;
 using DatingApp.API.Models.DataTransferObjects;
@@ -20,11 +21,14 @@ namespace DatingApp.API.Controllers
     {
         private readonly IAuthenticationRepository _authRepo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthenticationController(IAuthenticationRepository authRepo, IConfiguration config)
+        public AuthenticationController(IAuthenticationRepository authRepo,
+            IConfiguration config, IMapper mapper)
         {
             _authRepo = authRepo;
             _config = config;
+            _mapper = mapper;
         }
 
 
@@ -44,16 +48,14 @@ namespace DatingApp.API.Controllers
                 return BadRequest("this email is already taken");
             }
 
-            var userToSave = new UserModel
-            {
-                Username = regData.Username,
-                Email = regData.Email
-            };
+            var userToSave = _mapper.Map<UserModel>(regData);
 
             var user = await _authRepo.Register(userToSave, regData.Password);
 
+            var userToReturn = _mapper.Map<UserForDetailedViewDataObject>(user);
 
-            return Ok(user);
+
+            return CreatedAtRoute("GetUser", new{ Controller = "Users", id=userToReturn.Id}, userToReturn);
         }
 
 

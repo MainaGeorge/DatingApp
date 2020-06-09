@@ -2,7 +2,6 @@ import {
   HTTP_INTERCEPTORS,
   HttpEvent,
   HttpHandler,
-  HttpHeaders,
   HttpInterceptor,
   HttpRequest
 } from "@angular/common/http";

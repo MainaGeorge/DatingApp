@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserModel} from "../../shared/models";
+import {UserService} from '../../_services/user.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-member-card',
@@ -9,9 +11,11 @@ import {UserModel} from "../../shared/models";
 export class MemberCardComponent implements OnInit {
 
   @Input() user: UserModel
-  constructor() { }
+  photoUrl: string;
+  profilePhotoChangeSubscription: Subscription;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
-
 }

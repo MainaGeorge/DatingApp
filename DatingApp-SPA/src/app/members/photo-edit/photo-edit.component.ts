@@ -48,6 +48,7 @@ export class PhotoEditComponent implements OnInit {
           isMain: res.isMain
         };
         this.photos.push(photo);
+        this.userService.changePhoto.next(photo.url);
       }
     }
 
@@ -63,7 +64,7 @@ export class PhotoEditComponent implements OnInit {
       const mainPhoto = this.photos.filter( photo => photo.isMain)[0];
       mainPhoto.isMain = false;
       photo.isMain = true;
-      this.onProfilePhotoChange.emit(photo.url)
+      this.onProfilePhotoChange.emit(photo.url);
     }, error => {
       this.alertifyService.errorMessage(error);
     });

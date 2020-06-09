@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {UserModel} from '../shared/models';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AuthenticationServiceService} from './authentication-service.service';
 
 @Injectable({
@@ -11,6 +11,7 @@ import {AuthenticationServiceService} from './authentication-service.service';
 
 export class UserService {
 baseUrl = environment.apiUrl;
+changePhoto = new Subject<string>()
   constructor(private http: HttpClient) { }
 
 

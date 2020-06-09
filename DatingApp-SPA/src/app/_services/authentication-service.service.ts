@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {LoginModel, RegisterData, UserModel} from "../shared/models";
 import {map} from "rxjs/operators";
-import {AlertifyService} from "./alertify-service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../environments/environment";
 
@@ -26,8 +25,8 @@ export class AuthenticationServiceService {
       } ));
   }
 
-  register(registerData: RegisterData){
-  return this.http.post<UserModel>(this.baseUrl + 'register', registerData);
+  register(user: UserModel){
+  return this.http.post<UserModel>(this.baseUrl + 'register', user);
   }
 
   logout(){

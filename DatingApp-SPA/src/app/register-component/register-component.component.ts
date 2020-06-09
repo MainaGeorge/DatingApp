@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationServiceService} from "../_services/authentication-service.service";
 import {AlertifyService} from "../_services/alertify-service";
+import {LoginModel, UserModel} from '../shared/models';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register-component',
@@ -11,10 +13,12 @@ import {AlertifyService} from "../_services/alertify-service";
 export class RegisterComponentComponent implements OnInit {
   @Output('cancelRegistration') cancelRegistrationEvent = new EventEmitter<boolean>();
 
+  user: UserModel
   registerForm: FormGroup;
 
   constructor(private authService: AuthenticationServiceService,
-              private alertifyService: AlertifyService) { }
+              private alertifyService: AlertifyService,
+              private router: Router) { }
 
   validateConfirmPassword(form: FormGroup): { [key: string]: boolean}{
     if(form.get('password').value !== form.get('confirmPassword').value){
@@ -43,11 +47,19 @@ export class RegisterComponentComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm);
-    // this.authService.register(registrationForm.value).subscribe( results => {
-    //   this.alertifyService.success('registration successful')
-    // }, error => {
-    //   this.alertifyService.errorMessage(error);
-    // });
+    if(this.registerForm.valid){
+      this.user = Object.assign({}, this.registerForm.value)
+      const login:LoginModel = {username: this.registerForm.value.username, password: this.registerForm.value.password}
+      this.authService.register(this.user).subscribe( responseData => {
+        this.alertifyService.success('Registration successful');
+        },
+        error => {
+        this.alertifyService.errorMessage(error)
+        }, () => {
+        this.authService.login(login).subscribe( response => {
+          this.router.navigate(['/members']);
+        })
+      });
+    }
   }
 }
