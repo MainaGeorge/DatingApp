@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { NavigationComponentComponent } from './navigation-component/navigation-component.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { RegisterComponentComponent } from './register-component/register-component.component';
 import {ErrorInterceptorProvider} from './_services/error-interceptor.service';
@@ -45,6 +45,7 @@ import {FileUploadModule} from 'ng2-file-upload';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),

@@ -5,12 +5,12 @@
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 
 
-input.ng-invalid.ng-touched {
-  border: red solid 1px;
+input.ng-valid.ng-touched{
+  border: green solid 3px;
 }
 
-input.ng-valid.ng-touched{
-  border: green solid 1px;
+input.is-invalid, .ng-valid.is-invalid {
+  border: red solid 3px !important;
 }
 
 li.active {
