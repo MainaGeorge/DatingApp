@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, Pipe} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -27,7 +27,7 @@ import {MemberEditResolver} from './_resolvers/member-edit.resolver';
 import { PhotoEditComponent } from './members/photo-edit/photo-edit.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-
+import {TimeAgoExtendsPipePipe} from './pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
     ListsComponent,
     MemberCardComponent,
     MemberDetailComponent,
+    TimeAgoExtendsPipePipe,
     MemberEditComponent,
     PhotoEditComponent],
   imports: [

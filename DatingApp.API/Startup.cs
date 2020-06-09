@@ -61,6 +61,8 @@ namespace DatingApp.API
                     };
 
                 });
+
+            services.AddScoped<LogUserActivity>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
