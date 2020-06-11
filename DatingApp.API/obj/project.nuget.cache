@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HtvfruiSqV0z14RsOjLGm02S6Yfdi9I9AvM6eIeD5ve/xflf4v3Z2s+r1ihrZfOan2bSchQZ+OknDAoFapPYDg==",
+  "dgSpecHash": "KXmK1H4aQH7lXPlYohu7Ad9aciX/YsDMbh3LD9cToPkhDYlBVkQudzhu76nlVYRKl7yACL1WTqyuE0zSl/yjMQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\genag\\OneDrive\\Desktop\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
   "expectedPackageFiles": [
@@ -106,8 +106,7 @@
     "C:\\Users\\genag\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\genag\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\genag\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\genag\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\genag\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+    "C:\\Users\\genag\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

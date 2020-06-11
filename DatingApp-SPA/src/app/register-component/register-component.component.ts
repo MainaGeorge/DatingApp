@@ -33,15 +33,15 @@ export class RegisterComponentComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       'gender': new FormControl('male'),
-      'knownAs': new FormControl('First Name', Validators.required),
+      'knownAs': new FormControl('', Validators.required),
       'username': new FormControl('', Validators.required),
       'email': new FormControl('', [Validators.required, Validators.email]),
       'password': new FormControl('', [Validators.required,
         Validators.minLength(6), Validators.maxLength(15)]),
       'confirmPassword': new FormControl('', Validators.required),
       'dateOfBirth': new FormControl(null, Validators.required),
-      'city': new FormControl('City', Validators.required),
-      'country': new FormControl('Country', Validators.required)
+      'city': new FormControl('', Validators.required),
+      'country': new FormControl('', Validators.required)
     }, this.validateConfirmPassword);
     this.bsConfig = Object.assign({}, { containerClass: this.colorTheme });
   }
