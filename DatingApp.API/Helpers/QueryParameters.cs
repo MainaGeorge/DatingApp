@@ -7,7 +7,7 @@
         public int MaxPageSize { get; set; } = 10;
 
 
-        private int _pageSize = 10;
+        private int _pageSize = 8;
 
         public int PageSize
         {

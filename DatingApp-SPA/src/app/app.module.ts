@@ -28,6 +28,7 @@ import { PhotoEditComponent } from './members/photo-edit/photo-edit.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TimeAgoExtendsPipePipe} from './pipe';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {TimeAgoExtendsPipePipe} from './pipe';
     BrowserModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

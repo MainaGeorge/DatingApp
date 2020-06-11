@@ -51,7 +51,6 @@ namespace DatingApp.API
             }).AddJwtBearer(options =>
                 {
                     var encryptedKey = Encoding.UTF8.GetBytes(Configuration.GetValue<string>("AppSettings:Token"));
-                    Console.WriteLine(encryptedKey);
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(encryptedKey),

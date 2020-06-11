@@ -34,3 +34,15 @@ export interface Photo {
   isMain: boolean,
   dateAdded: Date
 }
+
+export interface Pagination {
+  totalPages: number,
+  totalItems: number,
+  currentPage: number,
+  itemsPerPage: number
+}
+
+export class PaginatedResult<T>{
+  result: PaginatedResult<UserModel[]>;
+  pagination: Pagination;
+}

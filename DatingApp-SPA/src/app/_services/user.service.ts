@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {UserModel} from '../shared/models';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {AuthenticationServiceService} from './authentication-service.service';
+import {PaginatedResult, UserModel} from '../shared/models';
+import {Observable, Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,25 @@ baseUrl = environment.apiUrl;
 changePhoto = new Subject<string>()
   constructor(private http: HttpClient) { }
 
-
-  getUsers(): Observable<UserModel[]>{
-    return this.http.get<UserModel[]>(`${this.baseUrl}users`);
+  getUsers(size?, page?): Observable<PaginatedResult<UserModel[]>>{
+    const paginatedResult = new PaginatedResult<UserModel[]>();
+    let params = new HttpParams();
+    if(size != null){
+      params = params.append('pageSize', size)
+    }
+    if(page != null){
+      params = params.append('pageNumber', page)
+    }
+    return this.http.get<PaginatedResult<UserModel[]>>(`${this.baseUrl}users`, {
+      observe: 'response',
+      params : params
+    }).pipe( map(response => {
+      paginatedResult.result = response.body;
+      if(response.headers.get('Pagination') != null){
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      }
+      return paginatedResult;
+    }));
   }
 
   getUser(id: number): Observable<UserModel>{
