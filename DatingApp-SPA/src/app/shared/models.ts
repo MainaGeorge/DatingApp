@@ -43,6 +43,11 @@ export interface Pagination {
 }
 
 export class PaginatedResult<T>{
-  result: PaginatedResult<UserModel[]>;
+  result: T;
   pagination: Pagination;
+
+  constructor(result: T, pagination?: Pagination) {
+    this.result = result;
+    this.pagination = pagination;
+  }
 }

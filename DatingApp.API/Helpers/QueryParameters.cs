@@ -6,8 +6,10 @@
 
         public int MaxPageSize { get; set; } = 10;
 
+        public int MaxAge { get; set; } = 99;
+        public int MinAge { get; set; } = 18;
 
-        private int _pageSize = 8;
+        private int _pageSize = 6;
 
         public int PageSize
         {
@@ -15,5 +17,7 @@
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
 
+        public int UserId { get; set; }
+        public string Gender { get; set; }
     }
 }
