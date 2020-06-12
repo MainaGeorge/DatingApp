@@ -71,5 +71,10 @@ namespace DatingApp.API.Data
         {
             return await _context.Photos.Where(p => p.UserModelId == userId).FirstOrDefaultAsync(p => p.IsMain);
         }
+
+        public async Task<Like> GetLike(int userId, int likeeId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(l => l.LikerId == userId && l.LikeeId == likeeId);
+        }
     }
 }
