@@ -2,27 +2,28 @@
 <h2 class="text-center m-3">Your matches - {{pagination.totalItems}} found</h2>
 
 <div class="container mt-3">
-  <form class="form-inline" novalidate>
+  <form class="form-inline" #formElement="ngForm" (ngSubmit)="loadUsers()" novalidate>
     <div class="form-group">
       <label for="minAge">Age From</label>
-      <input type="number" class="form-control ml-1" style="width: 70px" id="minAge" name="minAge">
+      <input type="number" [(ngModel)]="queryParams.minAge"
+             class="form-control ml-1" style="width: 70px" id="minAge" name="minAge">
     </div>
 
     <div class="form-group px-2">
       <label for="maxAge">Age To</label>
-      <input type="number" class="form-control ml-1" style="width: 70px" id="maxAge" name="maxAge">
+      <input type="number" class="form-control ml-1" style="width: 70px" [(ngModel)]="queryParams.maxAge"
+             id="maxAge" name="maxAge">
     </div>
 
     <div class="form-group px-2">
       <label for="gender">Show: </label>
-      <select class="form-control ml-1" style="width: 130px" id="gender" name="gender">
-        <option>
-
+      <select class="form-control ml-1" style="width: 130px" id="gender" name="gender" [(ngModel)]="queryParams.gender">
+        <option *ngFor="let gender of gender" [value]="gender.value">{{ gender.display}}
         </option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
-    <button type="button" class="btn btn-info" style="margin-left:10px">Reset Filter</button>
+    <button type="submit" class="btn btn-primary" style="margin-left:10px" >Apply Filters</button>
+    <button type="button" class="btn btn-info" style="margin-left:10px" (click)="resetFilters()">Reset Filter</button>
 
   </form>
 

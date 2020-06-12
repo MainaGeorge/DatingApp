@@ -14,13 +14,18 @@ export class UserService {
   changePhoto = new Subject<string>()
   constructor(private http: HttpClient) { }
 
-  getUsers(size?, page?): Observable<PaginatedResult<UserModel[]>>{
+  getUsers(size?, page?, userParams?): Observable<PaginatedResult<UserModel[]>>{
     let paginatedResult : PaginatedResult<UserModel[]>;
     let params = new HttpParams();
 
     if(page != null && size != null){
       params = params.append('pageNumber', page);
       params = params.append('pageSize', size);
+    }
+    if(userParams != null){
+      params = params.append('minAge', userParams.minAge);
+      params = params.append('maxAge', userParams.maxAge);
+      params = params.append('gender', userParams.gender);
     }
     return this.http.get<UserModel[]>(`${this.baseUrl}users`,
       {

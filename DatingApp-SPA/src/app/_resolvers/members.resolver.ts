@@ -16,7 +16,7 @@ export class MembersResolver implements Resolve<UserModel[]> {
               private router: Router) {
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UserModel[]> | Promise<UserModel[]> | UserModel[] {
-    return this.userService.getUsers(this.size, this.page).pipe( catchError( err => {
+    return this.userService.getUsers().pipe( catchError( err => {
       this.alertifyService.errorMessage("Something went wrong while getting the users");
       this.router.navigate(['/home'])
       return of(null);
