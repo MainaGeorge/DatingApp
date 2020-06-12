@@ -26,6 +26,7 @@ user: UserModel;
    this.queryParams.minAge = 18;
    this.queryParams.maxAge = 99;
    this.queryParams.gender = this.user.gender === 'male' ? 'female' : 'male';
+   this.queryParams.orderBy = 'lastActive';
   }
 
   pageChanged(event: any): void {

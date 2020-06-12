@@ -29,6 +29,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TimeAgoExtendsPipePipe} from './pipe';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
