@@ -14,7 +14,7 @@ export class UserService {
   changePhoto = new Subject<string>()
   constructor(private http: HttpClient) { }
 
-  getUsers(size?, page?, userParams?): Observable<PaginatedResult<UserModel[]>>{
+  getUsers(size?, page?, userParams?, likers?): Observable<PaginatedResult<UserModel[]>>{
     let paginatedResult : PaginatedResult<UserModel[]>;
     let params = new HttpParams();
 
@@ -28,6 +28,15 @@ export class UserService {
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
     }
+
+    if(likers === 'Likers'){
+      params = params.append('likers', 'true')
+    }
+
+    if(likers === 'Likees'){
+      params = params.append('likees', 'true');
+    }
+
     return this.http.get<UserModel[]>(`${this.baseUrl}users`,
       {
       observe: 'response',
