@@ -23,6 +23,7 @@ export class ListsComponent implements OnInit {
     this.route.data.subscribe(response => {
       this.pagination = response['users'].pagination;
       this.users = response['users'].result;
+      console.log(response);
     });
     this.likesParam = 'Likers';
   }
