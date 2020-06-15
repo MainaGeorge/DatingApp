@@ -55,7 +55,7 @@ namespace DatingApp.API.Controllers
             var userToReturn = _mapper.Map<UserForDetailedViewDataObject>(user);
 
 
-            return CreatedAtRoute("GetUser", new{ Controller = "Users", id=userToReturn.Id}, userToReturn);
+            return CreatedAtRoute("GetUser", new { Controller = "Users", id = userToReturn.Id }, userToReturn);
         }
 
 
@@ -85,7 +85,6 @@ namespace DatingApp.API.Controllers
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddMinutes(30),
                 SigningCredentials = credentials
-
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

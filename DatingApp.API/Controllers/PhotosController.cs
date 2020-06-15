@@ -88,8 +88,8 @@ namespace DatingApp.API.Controllers
 
 
                 var photoToReturn = _mapper.Map<PhotoToReturnDto>(photo);
-                // return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
-                return Ok(photoToReturn);
+                return CreatedAtAction("GetPhoto", new { id = photo.Id }, photoToReturn);
+                // return Ok(photoToReturn);
 
 
             }

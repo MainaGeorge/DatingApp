@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DatingApp.API.Helpers;
 using DatingApp.API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Data
 {
@@ -21,5 +22,10 @@ namespace DatingApp.API.Data
         Task<Photo> GetMainPhotoForUser(int userId);
 
         Task<Like> GetLike(int userId, int likeeId);
+
+        Task<Message> GetMessage(int messageId);
+        Task<PagedList<Message>> GetMessagesForUser();
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+
     }
 }
