@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Helpers;
+using DatingApp.API.Migrations;
 using DatingApp.API.Models;
 using DatingApp.API.Models.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +73,50 @@ namespace DatingApp.API.Controllers
 
             // return CreatedAtRoute("GetMessage", new { messageId = messageToSave.Id }, messageToReturn);
             return CreatedAtAction("GetMessage", new { userId, messageId = messageToSave.Id }, messageToReturn);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMessages(int userId,
+            [FromQuery] MessagesQueryParameters messagesParams)
+        {
+            var loggedUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (loggedUserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            messagesParams.UserId = userId;
+
+            var messagesFromRepo = await _repo.GetMessagesForUser(messagesParams);
+
+            var messages = _mapper.Map<IEnumerable<MessageToReturnDto>>(messagesFromRepo);
+
+            Response.AddPagination(messagesFromRepo.PageNumber, messagesFromRepo.PageSize,
+                messagesFromRepo.TotalCount, messagesFromRepo.TotalPages);
+
+            return Ok(messages);
+        }
+
+        [HttpGet("thread/{recipientId}")]
+        public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
+        {
+            var loggedUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (loggedUserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            var recipient = await _repo.GetUser(recipientId);
+            if (recipient == null)
+            {
+                return NotFound("couldn't find user");
+            }
+
+            var messagesFromRepo = await _repo.GetMessageThread(userId, recipientId);
+
+            var messagesToReturn = _mapper.Map<IEnumerable<MessageToReturnDto>>(messagesFromRepo);
+
+            return Ok(messagesToReturn);
         }
     }
 }

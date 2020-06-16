@@ -96,14 +96,33 @@ namespace DatingApp.API.Data
             return await _context.Messages.FirstOrDefaultAsync(m => m.Id == messageId);
         }
 
-        public Task<PagedList<Message>> GetMessagesForUser()
+        public async Task<PagedList<Message>> GetMessagesForUser(MessagesQueryParameters messagesParams)
         {
-            throw new NotImplementedException();
+            var messages = _context.Messages
+                .Include(m => m.Recipient).ThenInclude(r => r.Photos)
+                .Include(m => m.Sender).ThenInclude(s => s.Photos)
+                .AsQueryable();
+
+            messages = messagesParams.MessageContainer switch
+            {
+                "Inbox" => messages.Where(m => m.RecipientId == messagesParams.UserId),
+                "Outbox" => messages.Where(m => m.SenderId == messagesParams.UserId),
+                _ => messages.Where(m => m.RecipientId == messagesParams.UserId && !m.IsRead)
+            };
+
+            messages = messages.OrderByDescending(m => m.DateSent);
+
+            return await PagedList<Message>.CreateAsync(messages, messagesParams.PageNumber, messagesParams.PageSize);
         }
 
-        public Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
         {
-            throw new NotImplementedException();
+            var messages = await _context.Messages.Where(m => m.RecipientId == userId && m.SenderId == recipientId
+                                                              || m.SenderId == userId && m.RecipientId == recipientId)
+                .OrderByDescending(m => m.DateSent)
+                .ToListAsync();
+
+            return messages;
         }
 
         private async Task<IEnumerable<int>> GetLikes(int userId, bool likers)
