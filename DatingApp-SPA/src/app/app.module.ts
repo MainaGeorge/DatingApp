@@ -31,6 +31,7 @@ import {TimeAgoExtendsPipePipe} from './pipe';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {LikesResolver} from './_resolvers/likes.resolver';
+import { MembersMessagesComponent } from './members/members-messages/members-messages.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {LikesResolver} from './_resolvers/likes.resolver';
     MemberDetailComponent,
     TimeAgoExtendsPipePipe,
     MemberEditComponent,
-    PhotoEditComponent],
+    PhotoEditComponent,
+    MembersMessagesComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

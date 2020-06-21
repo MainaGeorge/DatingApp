@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {PaginatedResult, Pagination, UserModel} from '../shared/models';
+import {Message, PaginatedResult, Pagination, UserModel} from '../shared/models';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -53,6 +53,34 @@ export class UserService {
     }));
   }
 
+
+
+  getMessages(userId, pages?, size?, messageContainer?) : Observable<PaginatedResult<Message[]>>{
+    let params = new HttpParams();
+    params = params.append('MessageContainer', messageContainer);
+
+    if(pages != null && size != null){
+      params = params.append('pageNumber', pages);
+      params = params.append('pageSize', size);
+    }
+
+    return this.http.get<Message[]>(`${this.baseUrl}users/${userId}/messages`, {
+      observe: 'response',
+      params: params
+    }).pipe( map(response => {
+      const messages:Message[] = response.body;
+      let paginationInfo: Pagination;
+      if(response.headers.get('Pagination') != null){
+        paginationInfo = JSON.parse(response.headers.get('Pagination'));
+      }
+      return new PaginatedResult<Message[]>(messages, paginationInfo)
+    }));
+  }
+
+  getMessageThread(userId:number, recipientId:number){
+    return this.http.get<Message[]>(`${this.baseUrl}users/${userId}/messages/thread/${recipientId}`);
+  }
+
   getUser(id: number): Observable<UserModel>{
     return this.http.get<UserModel>(`${this.baseUrl}users/${id}`);
   }
@@ -71,5 +99,9 @@ export class UserService {
 
   addLike(userId:number, recipientId:number){
     return this.http.post(`${this.baseUrl}users/${userId}/likes/${recipientId}`, {});
+  }
+
+  sendInstantMessage(userId: number, message:Message){
+    return this.http.post<Message>(`${this.baseUrl}users/${userId}/messages`, message);
   }
 }

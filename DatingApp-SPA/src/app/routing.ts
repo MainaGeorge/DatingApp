@@ -11,6 +11,7 @@ import {MemberEditComponent} from './members/member-edit/member-edit.component';
 import {MemberEditResolver} from './_resolvers/member-edit.resolver';
 import {PreventDataLossGuard} from './_guards/prevent-data-loss.guard';
 import {LikesResolver} from './_resolvers/likes.resolver';
+import {MessagesResolver} from './_resolvers/messages.resolver';
 
 export const routes: Routes = [
   { path: '',canActivate: [PermissionGuard], runGuardsAndResolvers: 'always', children:
@@ -19,7 +20,7 @@ export const routes: Routes = [
        {path: 'members/edit',  component: MemberEditComponent,
           resolve: {user: MemberEditResolver}, canDeactivate: [PreventDataLossGuard]},
        {path: 'members/:id', resolve : { user : MemberDetailsResolver}, component: MemberDetailComponent},
-       {path: 'messages', component: MessagesComponent},
+       {path: 'messages', component: MessagesComponent, resolve: {'messages': MessagesResolver}},
        {path: 'lists', component: ListsComponent, resolve: { users : LikesResolver}}
       ]
   },

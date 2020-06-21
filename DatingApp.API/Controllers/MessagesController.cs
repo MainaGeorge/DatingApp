@@ -48,9 +48,10 @@ namespace DatingApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostMessage(int userId, MessageToSend message)
         {
+            var loggedUser = await _repo.GetUser(userId);
             var loggedUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            if (loggedUserId != userId)
+            if (loggedUserId != loggedUser.Id)
             {
                 return Unauthorized();
             }
@@ -69,7 +70,7 @@ namespace DatingApp.API.Controllers
 
             if (!await _repo.SaveAll()) throw new Exception("sending message failed on save");
 
-            var messageToReturn = _mapper.Map<MessageToSend>(messageToSave);
+            var messageToReturn = _mapper.Map<MessageToReturnDto>(messageToSave);
 
             // return CreatedAtRoute("GetMessage", new { messageId = messageToSave.Id }, messageToReturn);
             return CreatedAtAction("GetMessage", new { userId, messageId = messageToSave.Id }, messageToReturn);
@@ -101,7 +102,9 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
         {
             var loggedUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            if (loggedUserId != userId)
+            var loggedUser = await _repo.GetUser(loggedUserId);
+
+            if (loggedUser.Id != userId)
             {
                 return Unauthorized();
             }

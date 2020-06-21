@@ -41,7 +41,20 @@ export interface Pagination {
   currentPage: number,
   itemsPerPage: number
 }
+export interface Message {
+  id: number,
+  content: string,
+  senderId: number,
+  senderKnownAs: string,
+  senderPhotoUrl: string,
+  recipientId: number,
+  recipientKnownAs: string,
+  recipientPhotoUrl: string,
+  isRead:boolean,
+  dateSent: Date,
+  dateRead: Date
 
+}
 export class PaginatedResult<T>{
   result: T;
   pagination: Pagination;
