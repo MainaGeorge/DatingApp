@@ -105,9 +105,9 @@ namespace DatingApp.API.Data
 
             messages = messagesParams.MessageContainer switch
             {
-                "Inbox" => messages.Where(m => m.RecipientId == messagesParams.UserId),
-                "Outbox" => messages.Where(m => m.SenderId == messagesParams.UserId),
-                _ => messages.Where(m => m.RecipientId == messagesParams.UserId && !m.IsRead)
+                "Inbox" => messages.Where(m => m.RecipientId == messagesParams.UserId && !m.RecipientDeleted),
+                "Outbox" => messages.Where(m => m.SenderId == messagesParams.UserId && !m.SenderDeleted),
+                _ => messages.Where(m => m.RecipientId == messagesParams.UserId && !m.RecipientDeleted && !m.IsRead)
             };
 
             messages = messages.OrderByDescending(m => m.DateSent);
@@ -117,8 +117,8 @@ namespace DatingApp.API.Data
 
         public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
         {
-            var messages = await _context.Messages.Where(m => m.RecipientId == userId && m.SenderId == recipientId
-                                                              || m.SenderId == userId && m.RecipientId == recipientId)
+            var messages = await _context.Messages.Where(m => m.RecipientId == userId && m.SenderId == recipientId && !m.RecipientDeleted
+                                                              || m.SenderId == userId && m.RecipientId == recipientId && !m.SenderDeleted)
                 .OrderByDescending(m => m.DateSent)
                 .ToListAsync();
 
